@@ -35,7 +35,7 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/xyy698' }
     ]
-  }
+  },
      // 设置搜索框的样式
     search: {
       provider: "local",
