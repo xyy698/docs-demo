@@ -1,25 +1,15 @@
----
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
+﻿# 欢迎来到我的文档项目
 
-hero:
-  name: "我的文档项目"
-  text: "一个文档站点"
-  tagline: 好好学习,天天向上
-  actions:
-    - theme: brand
-      text: Markdown 示例
-      link: https://www.jd.com
-    - theme: alt
-      text: API 示例
-      link: /api-examples
+这是我的 VitePress 文档网站。
 
-features:
-  - title: Feature A
-    details: 特征1的详细描述
-  - title: Feature B
-    details: 特征2的详细描述
-  - title: Feature C
-    details: 特征3的详细描述
----
+## 功能特性
+-  Markdown 支持
+-  现代化主题
+-  快速加载
+-  响应式设计
 
+## 页面
+- [指南](./guide/)
+
+## 开始使用
+这里可以添加你的项目介绍和使用说明。

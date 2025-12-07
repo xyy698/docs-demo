@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as i,ae as r}from"./chunks/framework.CHDT0Kbg.js";const u=JSON.parse('{"title":"欢迎来到我的文档项目","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),l={name:"index.md"};function o(n,a,d,s,h,c){return i(),t("div",null,[...a[0]||(a[0]=[r("",8)])])}const p=e(l,[["render",o]]);export{u as __pageData,p as default};

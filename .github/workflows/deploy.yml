@@ -1,79 +1,27 @@
-name: Deploy VitePress site to GitHub Pages
+﻿name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: [main, master]
-  workflow_dispatch:  # 允许手动触发
-
-# 设置GITHUB_TOKEN权限
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# 并发控制
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-env:
-  NODE_VERSION: 20
-  PNPM_VERSION: 8.6.12
+    branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
-      
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+          version: 8
+      - uses: actions/setup-node@v4
         with:
-          version: ${{ env.PNPM_VERSION }}
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 20
           cache: pnpm
       
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - run: pnpm install
+      - run: pnpm run docs:build
       
-      - name: Install dependencies
-        run: pnpm install
-      
-      - name: Build with VitePress
-        run: pnpm run docs:build
-      
-      - name: Create .nojekyll file
-        run: |
-          # 在构建目录中创建 .nojekyll
-          touch .vitepress/dist/.nojekyll
-          echo "Created .nojekyll file for GitHub Pages"
-      
-      - name: Verify build output
-        run: |
-          echo "Build directory contents:"
-          ls -la .vitepress/dist/
-          echo -e "\nTotal size:"
-          du -sh .vitepress/dist
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: .vitepress/dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/.vitepress/dist
